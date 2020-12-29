@@ -6,9 +6,9 @@
       "direction": "in",
       "name": "req",
       "methods": [
-        "get",
         "post"
-      ]
+      ],
+      "route": "keys/{key-name}/backup"
     },
     {
       "type": "http",

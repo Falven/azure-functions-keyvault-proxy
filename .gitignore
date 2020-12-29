@@ -92,3 +92,11 @@ bin
 obj
 appsettings.json
 local.settings.json
+
+# Yarn
+.yarn/*
+!.yarn/cache
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions

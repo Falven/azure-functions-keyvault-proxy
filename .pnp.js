@@ -37,17 +37,39 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {
           "packageLocation": "./",
           "packageDependencies": [
+            ["@azure/functions", "npm:1.2.2"],
+            ["typescript", "patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=cc6730"]
           ],
           "linkType": "SOFT",
+        }]
+      ]],
+      ["@azure/functions", [
+        ["npm:1.2.2", {
+          "packageLocation": "./.yarn/cache/@azure-functions-npm-1.2.2-1e4b858e9d-6aa7a0265a.zip/node_modules/@azure/functions/",
+          "packageDependencies": [
+            ["@azure/functions", "npm:1.2.2"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["azure-functions-keyvault-proxy", [
         ["workspace:.", {
           "packageLocation": "./",
           "packageDependencies": [
-            ["azure-functions-keyvault-proxy", "workspace:."]
+            ["azure-functions-keyvault-proxy", "workspace:."],
+            ["@azure/functions", "npm:1.2.2"],
+            ["typescript", "patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=cc6730"]
           ],
           "linkType": "SOFT",
+        }]
+      ]],
+      ["typescript", [
+        ["patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=cc6730", {
+          "packageLocation": "./.yarn/cache/typescript-patch-2adb05d63d-f0d3d9c987.zip/node_modules/typescript/",
+          "packageDependencies": [
+            ["typescript", "patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=cc6730"]
+          ],
+          "linkType": "HARD",
         }]
       ]]
     ]

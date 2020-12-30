@@ -99,7 +99,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
+"@types/node@npm:*, @types/node@npm:^14.14.16":
   version: 14.14.16
   resolution: "@types/node@npm:14.14.16"
   checksum: 220a7496ec73861ad7fb4ae762618bb46ac9d5d5f92f3a2fcebfd1a81a509ff558eface7bcd1d632598a8a28f856a74b324e7165918e8334a59c221cb06d15e3
@@ -314,6 +314,7 @@ __metadata:
   resolution: "azure-functions-keyvault-proxy@workspace:."
   dependencies:
     "@azure/functions": ^1.2.2
+    "@types/node": ^14.14.16
     "@yarnpkg/pnpify": ^2.4.0
     typed-rest-client: ^1.8.0
     typescript: ^3.3.3

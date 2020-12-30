@@ -38,6 +38,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["@azure/functions", "npm:1.2.2"],
+            ["@types/node", "npm:14.14.16"],
             ["@yarnpkg/pnpify", "virtual:f9e4b2ea2c076ae70088b4d5ae5e7281e606115d901aaf9ab04f99f7211a4d5c526f4730083dd405c2c63d2494c50671ec3dfd9ee65588b958c13b638ff79c89#npm:2.4.0"],
             ["typed-rest-client", "npm:1.8.0"],
             ["typescript", "patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=cc6730"]
@@ -399,6 +400,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["azure-functions-keyvault-proxy", "workspace:."],
             ["@azure/functions", "npm:1.2.2"],
+            ["@types/node", "npm:14.14.16"],
             ["@yarnpkg/pnpify", "virtual:f9e4b2ea2c076ae70088b4d5ae5e7281e606115d901aaf9ab04f99f7211a4d5c526f4730083dd405c2c63d2494c50671ec3dfd9ee65588b958c13b638ff79c89#npm:2.4.0"],
             ["typed-rest-client", "npm:1.8.0"],
             ["typescript", "patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=cc6730"]

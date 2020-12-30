@@ -17,9 +17,35 @@ __metadata:
   resolution: "azure-functions-keyvault-proxy@workspace:."
   dependencies:
     "@azure/functions": ^1.2.2
+    typed-rest-client: ^1.8.0
     typescript: ^3.3.3
   languageName: unknown
   linkType: soft
+
+"qs@npm:^6.9.1":
+  version: 6.9.4
+  resolution: "qs@npm:6.9.4"
+  checksum: beba62d1e1c66e9888cc08a488eb95771c252a92289a96bff4b767a49e4e7afe9487d7ee3269b856292d8281b855ac5eac927c2e77f845e407ee4fe54743fea7
+  languageName: node
+  linkType: hard
+
+"tunnel@npm:0.0.6":
+  version: 0.0.6
+  resolution: "tunnel@npm:0.0.6"
+  checksum: 78fbb1a55a44fc8de6a497923bf7bf6e7b14b396e0ddaf11fe624ab7f646a0d2ada03f6dcb4a80940faed9649e30d229114f218e8906badd12ded2323a6f666b
+  languageName: node
+  linkType: hard
+
+"typed-rest-client@npm:^1.8.0":
+  version: 1.8.0
+  resolution: "typed-rest-client@npm:1.8.0"
+  dependencies:
+    qs: ^6.9.1
+    tunnel: 0.0.6
+    underscore: 1.8.3
+  checksum: fe860d9c6901918c4bc2a6d0e568e3761fe212eeb4a0cc7ad1b1003c92fd8bd66e3f21e7d4dda817646a9542e1cb943564814172bd5809b6ad70e1904e00688b
+  languageName: node
+  linkType: hard
 
 typescript@^3.3.3:
   version: 3.9.7
@@ -38,5 +64,12 @@ typescript@^3.3.3:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: f0d3d9c987860c7c458229ab6dd7e3d322405db36b70abccba610b5efd9f9451e4e67a3fc7983c0d3741033c1f1a8d7aa859a1510caa8f20fad762fc39648bfa
+  languageName: node
+  linkType: hard
+
+"underscore@npm:1.8.3":
+  version: 1.8.3
+  resolution: "underscore@npm:1.8.3"
+  checksum: 31f4f79bd5ee95da26bb85604c6c82cd3d70a0edc251adf098d4985623b34eb838d3342c08eb02ad0abd24cf0edf71a9cb01a787e60c2f07db113c51a01c1bf5
   languageName: node
   linkType: hard

@@ -38,6 +38,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["@azure/functions", "npm:1.2.2"],
+            ["typed-rest-client", "npm:1.8.0"],
             ["typescript", "patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=cc6730"]
           ],
           "linkType": "SOFT",
@@ -58,9 +59,40 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["azure-functions-keyvault-proxy", "workspace:."],
             ["@azure/functions", "npm:1.2.2"],
+            ["typed-rest-client", "npm:1.8.0"],
             ["typescript", "patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=cc6730"]
           ],
           "linkType": "SOFT",
+        }]
+      ]],
+      ["qs", [
+        ["npm:6.9.4", {
+          "packageLocation": "./.yarn/cache/qs-npm-6.9.4-7b853cfa85-beba62d1e1.zip/node_modules/qs/",
+          "packageDependencies": [
+            ["qs", "npm:6.9.4"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["tunnel", [
+        ["npm:0.0.6", {
+          "packageLocation": "./.yarn/cache/tunnel-npm-0.0.6-b1c0830ea4-78fbb1a55a.zip/node_modules/tunnel/",
+          "packageDependencies": [
+            ["tunnel", "npm:0.0.6"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["typed-rest-client", [
+        ["npm:1.8.0", {
+          "packageLocation": "./.yarn/cache/typed-rest-client-npm-1.8.0-a677f5624b-fe860d9c69.zip/node_modules/typed-rest-client/",
+          "packageDependencies": [
+            ["typed-rest-client", "npm:1.8.0"],
+            ["qs", "npm:6.9.4"],
+            ["tunnel", "npm:0.0.6"],
+            ["underscore", "npm:1.8.3"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["typescript", [
@@ -68,6 +100,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/typescript-patch-2adb05d63d-f0d3d9c987.zip/node_modules/typescript/",
           "packageDependencies": [
             ["typescript", "patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=cc6730"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["underscore", [
+        ["npm:1.8.3", {
+          "packageLocation": "./.yarn/cache/underscore-npm-1.8.3-a2d207f853-31f4f79bd5.zip/node_modules/underscore/",
+          "packageDependencies": [
+            ["underscore", "npm:1.8.3"]
           ],
           "linkType": "HARD",
         }]

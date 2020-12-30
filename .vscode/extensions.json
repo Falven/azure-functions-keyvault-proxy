@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "ms-azuretools.vscode-azurefunctions",
-    "arcanis.vscode-zipfs"
+    "arcanis.vscode-zipfs",
+    "esbenp.prettier-vscode"
   ]
 }

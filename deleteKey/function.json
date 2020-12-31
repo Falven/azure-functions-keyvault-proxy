@@ -5,10 +5,8 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "methods": [
-        "get",
-        "post"
-      ]
+      "methods": ["delete"],
+      "route": "keys/{key-name}"
     },
     {
       "type": "http",

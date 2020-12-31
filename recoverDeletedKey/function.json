@@ -5,10 +5,8 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "methods": [
-        "get",
-        "post"
-      ]
+      "methods": ["post"],
+      "route": "deletedkeys/{key-name}/recover"
     },
     {
       "type": "http",

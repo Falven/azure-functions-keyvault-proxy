@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "An Azure Key Vault API proxy written in Azure Functions.",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
+    "build": "yarn pnpify tsc",
+    "watch": "yarn pnpify tsc -w",
     "prestart": "yarn run build",
     "start": "func start",
     "test": "echo \"No tests yet...\""

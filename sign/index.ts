@@ -1,17 +1,19 @@
-import { AzureFunction, Context, HttpRequest } from "@azure/functions"
+import { AzureFunction, Context, HttpRequest } from "@azure/functions";
+import { AzureFunctionsProxyClient } from "../SharedCode/AzureFunctionsProxyClient";
 
-const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
-    context.log('HTTP trigger function processed a request.');
-    const name = (req.query.name || (req.body && req.body.name));
-    const responseMessage = name
-        ? "Hello, " + name + ". This HTTP triggered function executed successfully."
-        : "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.";
-
-    context.res = {
-        // status: 200, /* Defaults to 200 */
-        body: responseMessage
-    };
-
+const sign: AzureFunction = async function (
+  context: Context,
+  req: HttpRequest
+): Promise<void> {
+  const backendEnv = process.env["AZURE_KEYVAULT_BACKEND_HOST"];
+  if (backendEnv == null) {
+    throw new Error(
+      "The required Azure Function Application Setting AZURE_KEYVAULT_BACKEND_HOST has not been set."
+    );
+  }
+  const backendUrl = new URL(backendEnv);
+  const proxyClient = new AzureFunctionsProxyClient();
+  context.res = await proxyClient.post(backendUrl, req);
 };
 
-export default httpTrigger;
+export default sign;

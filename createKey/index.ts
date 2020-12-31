@@ -1,7 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import { AzureFunctionsProxyClient } from "../SharedCode/AzureFunctionsProxyClient";
 
-const getKey: AzureFunction = async function (
+const createKey: AzureFunction = async function (
   context: Context,
   req: HttpRequest
 ): Promise<void> {
@@ -13,7 +13,7 @@ const getKey: AzureFunction = async function (
   }
   const backendUrl = new URL(backendEnv);
   const proxyClient = new AzureFunctionsProxyClient();
-  context.res = await proxyClient.get(backendUrl, req);
+  context.res = await proxyClient.post(backendUrl, req);
 };
 
-export default getKey;
+export default createKey;

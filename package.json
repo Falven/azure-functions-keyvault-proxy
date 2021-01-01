@@ -1,0 +1,21 @@
+{
+  "name": "azure-functions-keyvault-proxy",
+  "version": "1.0.0",
+  "description": "An Azure Key Vault API proxy written in Azure Functions.",
+  "scripts": {
+    "build": "yarn pnpify tsc",
+    "watch": "yarn pnpify tsc -w",
+    "prestart": "yarn run build",
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "devDependencies": {
+    "@azure/functions": "^1.2.2",
+    "typescript": "^3.3.3"
+  },
+  "dependencies": {
+    "@types/node": "^14.14.16",
+    "@yarnpkg/pnpify": "^2.4.0",
+    "typed-rest-client": "^1.8.0"
+  }
+}

@@ -19,13 +19,6 @@
       "type": "shell",
       "label": "yarn install",
       "command": "yarn install"
-    },
-    {
-      "type": "shell",
-      "label": "yarn prune",
-      "command": "yarn install --production --ignore-scripts --prefer-offline",
-      "dependsOn": "yarn build",
-      "problemMatcher": []
     }
   ]
 }

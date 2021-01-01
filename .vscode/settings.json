@@ -4,7 +4,6 @@
   "azureFunctions.projectLanguage": "TypeScript",
   "azureFunctions.projectRuntime": "~3",
   "debug.internalConsoleOptions": "neverOpen",
-  "azureFunctions.preDeployTask": "yarn prune",
   "npm.packageManager": "yarn",
   "tslint.packageManager": "yarn",
   "prettier.packageManager": "yarn",

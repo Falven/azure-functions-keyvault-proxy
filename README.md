@@ -1,6 +1,6 @@
 # azure-functions-keyvault-proxy
 
-An Azure Key Vault API proxy written in Azure Functions.
+An Azure Key Vault API proxy written in TypeScript to host on Azure Functions.
 
 ## Goals
 

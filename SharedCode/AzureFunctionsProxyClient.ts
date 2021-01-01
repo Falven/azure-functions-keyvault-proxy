@@ -1,6 +1,6 @@
 import { HttpRequest, Cookie } from "@azure/functions";
 import { HttpClient } from "typed-rest-client/HttpClient";
-import { IHttpClientResponse, IHeaders } from "typed-rest-client/Interfaces";
+import { IHttpClientResponse } from "typed-rest-client/Interfaces";
 
 export class AzureFunctionsProxyClient {
   private httpClient: HttpClient;
@@ -9,31 +9,36 @@ export class AzureFunctionsProxyClient {
     this.httpClient = new HttpClient(undefined);
   }
 
-  private validateProxyRequest(proxyUrl: URL, request: HttpRequest) {
-    if (proxyUrl == null) {
-      throw new TypeError("Invalid parameter: proxyUrl.");
-    }
-    if (request == null) {
-      throw new TypeError("Invalid parameter: request.");
-    }
-  }
-
   private getProxyHref(proxyUrl: URL, request: HttpRequest): string {
-    this.validateProxyRequest(proxyUrl, request);
     const requestUrl = new URL(request.url);
     return proxyUrl.origin + requestUrl.pathname + requestUrl.search;
   }
 
+  /**
+   * Sets the request's host header to the host and port number of the server to which the request is being sent (the proxy).
+   * @param proxyUrl The Url to extract the proxy host and port from.
+   * @param request The request whose host header to set.
+   */
   private setHostHeader(proxyUrl: URL, request: HttpRequest): void {
-    this.validateProxyRequest(proxyUrl, request);
     request.headers["host"] = proxyUrl.host;
+  }
+
+  /**
+   *
+   * @param proxyUrl
+   * @param request
+   */
+  private setViaHeader(proxyUrl: URL, request: HttpRequest): void {
+    request.headers["via"] = "";
   }
 
   private getProxyHeaders(
     proxyUrl: URL,
     request: HttpRequest
   ): { [key: string]: string } {
+    // Given that the function will be running on the Azure Function runtime, the x-forwarded-for header will already be set for us.
     this.setHostHeader(proxyUrl, request);
+    this.setViaHeader(proxyUrl, request);
     return request.headers;
   }
 
@@ -49,58 +54,17 @@ export class AzureFunctionsProxyClient {
     if (verb == null) {
       throw new TypeError("Invalid parameter: verb.");
     }
+    if (proxyUrl == null) {
+      throw new TypeError("Invalid parameter: proxyUrl.");
+    }
+    if (request == null) {
+      throw new TypeError("Invalid parameter: request.");
+    }
+
     const response = await this.httpClient.request(
       verb,
       this.getProxyHref(proxyUrl, request),
       this.getProxyBody(request),
-      this.getProxyHeaders(proxyUrl, request)
-    );
-    return await HttpResponse.fromHttpClientResponse(response);
-  }
-
-  async get(proxyUrl: URL, request: HttpRequest): Promise<IHttpResponse> {
-    this.validateProxyRequest(proxyUrl, request);
-    const response = await this.httpClient.get(
-      this.getProxyHref(proxyUrl, request),
-      this.getProxyHeaders(proxyUrl, request)
-    );
-    return await HttpResponse.fromHttpClientResponse(response);
-  }
-
-  async post(proxyUrl: URL, request: HttpRequest): Promise<IHttpResponse> {
-    this.validateProxyRequest(proxyUrl, request);
-    const response = await this.httpClient.post(
-      this.getProxyHref(proxyUrl, request),
-      this.getProxyBody(request),
-      this.getProxyHeaders(proxyUrl, request)
-    );
-    return await HttpResponse.fromHttpClientResponse(response);
-  }
-
-  async patch(proxyUrl: URL, request: HttpRequest): Promise<IHttpResponse> {
-    this.validateProxyRequest(proxyUrl, request);
-    const response = await this.httpClient.patch(
-      this.getProxyHref(proxyUrl, request),
-      this.getProxyBody(request),
-      this.getProxyHeaders(proxyUrl, request)
-    );
-    return await HttpResponse.fromHttpClientResponse(response);
-  }
-
-  async put(proxyUrl: URL, request: HttpRequest): Promise<IHttpResponse> {
-    this.validateProxyRequest(proxyUrl, request);
-    const response = await this.httpClient.put(
-      this.getProxyHref(proxyUrl, request),
-      this.getProxyBody(request),
-      this.getProxyHeaders(proxyUrl, request)
-    );
-    return await HttpResponse.fromHttpClientResponse(response);
-  }
-
-  async delete(proxyUrl: URL, request: HttpRequest): Promise<IHttpResponse> {
-    this.validateProxyRequest(proxyUrl, request);
-    const response = await this.httpClient.del(
-      this.getProxyHref(proxyUrl, request),
       this.getProxyHeaders(proxyUrl, request)
     );
     return await HttpResponse.fromHttpClientResponse(response);

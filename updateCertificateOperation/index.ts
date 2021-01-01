@@ -6,9 +6,11 @@ const updateCertificateOperation: AzureFunction = async function (
   context: Context,
   req: HttpRequest
 ): Promise<void> {
-  const backendUrl = Environment.getBackendUrl();
-  const proxyClient = new AzureFunctionsProxyClient();
-  context.res = await proxyClient.patch(backendUrl, req);
+  context.res = await new AzureFunctionsProxyClient().request(
+    context.bindings.request.method,
+    Environment.getBackendUrl(),
+    req
+  );
 };
 
 export default updateCertificateOperation;

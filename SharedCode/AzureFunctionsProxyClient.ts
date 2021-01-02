@@ -3,6 +3,9 @@ import { HttpClient } from "typed-rest-client/HttpClient";
 import { IHttpClientResponse } from "typed-rest-client/Interfaces";
 import { cloneDeep } from "lodash";
 
+/**
+ * A minimal transparent proxy client that processes Azure function requests and responses.
+ */
 export class AzureFunctionsProxyClient {
   private httpClient: HttpClient;
 
@@ -10,49 +13,40 @@ export class AzureFunctionsProxyClient {
     this.httpClient = new HttpClient(undefined);
   }
 
-  private getRequestMethod(request: HttpRequest): string {
-    return request.method;
-  }
-
-  private getProxyHref(proxyUrl: URL, request: HttpRequest): string {
-    const requestUrl = new URL(request.url);
-    return proxyUrl.origin + requestUrl.pathname + requestUrl.search;
-  }
-
-  private getProxyBody(request: HttpRequest): string {
-    return request.body;
-  }
-
   /**
    * Sets the request's host header to the host and port number of the server to which the request is being sent (the proxy).
-   * @param proxyUrl The Url to extract the proxy host and port from.
    * @param request The request whose host header to set.
+   * @param endpointUrl The Url to extract the proxy host and port from.
    */
-  private setHostHeader(proxyUrl: URL, request: HttpRequest): void {
-    request.headers["host"] = proxyUrl.host;
+  private setHostHeader(request: HttpRequest, endpointUrl: URL): void {
+    request.headers["host"] = endpointUrl.host;
   }
 
   /**
-   *
-   * @param proxyUrl
-   * @param request
+   * Sets the via header in accordance with [RFC 2616/W3 Proxy guidelines 4.1.6.1.](https://www.w3.org/TR/ct-guidelines/#sec-via-headers)
+   * @param request The request whose via header to set.
+   * @param endpointUrl The URL of the proxy.
    */
-  private setViaHeader(proxyUrl: URL, request: HttpRequest): void {
-    request.headers["via"] = "";
-  }
-
-  private getProxyHeaders(
-    proxyUrl: URL,
-    request: HttpRequest
-  ): { [key: string]: string } {
-    // Given that the function will be running on the Azure Function runtime, the x-forwarded-for header will already be set for us.
-    this.setHostHeader(proxyUrl, request);
-    this.setViaHeader(proxyUrl, request);
-    return request.headers;
+  private setViaHeader(request: HttpRequest, endpointUrl: URL): void {
+    let viaHeader = request.headers["via"].trim();
+    if (viaHeader) {
+      viaHeader += ", ";
+    }
+    request.headers["via"] = `${viaHeader}1.1 ${endpointUrl.hostname}`;
   }
 
   /**
-   * Proxies the given Azure Functions request to the provided proxyUrl
+   * Sets the Url to the endpoint.
+   * @param request The request used to construct the Url.
+   * @param endpointUrl The URL of the endpoint.
+   */
+  private setEndpointUrl(request: HttpRequest, endpointUrl: URL): void {
+    const requestUrl = new URL(request.url);
+    request.url = endpointUrl.origin + requestUrl.pathname + requestUrl.search;
+  }
+
+  /**
+   * Proxies the given Azure Functions request to the provided endpointUrl
    * following [W3 Proxy guidelines.](https://www.w3.org/TR/ct-guidelines/#sec-introduction)
    * @param request The request to proxy.
    * @param endpointUrl The URL of the endpoint to proxy the request to.
@@ -65,14 +59,19 @@ export class AzureFunctionsProxyClient {
       throw new TypeError("Invalid parameter: request.");
     }
     if (endpointUrl == null) {
-      throw new TypeError("Invalid parameter: proxyUrl.");
+      throw new TypeError("Invalid parameter: endpointUrl.");
     }
+
     const proxyRequest = cloneDeep(request);
+    // Given that the function will be running on the Azure Function runtime, the x-forwarded-for header will already be set for us.
+    this.setHostHeader(proxyRequest, endpointUrl);
+    this.setViaHeader(proxyRequest, endpointUrl);
+    this.setEndpointUrl(proxyRequest, endpointUrl);
     const response = await this.httpClient.request(
-      this.getRequestMethod(proxyRequest),
-      this.getProxyHref(endpointUrl, proxyRequest),
-      this.getProxyBody(proxyRequest),
-      this.getProxyHeaders(endpointUrl, proxyRequest)
+      proxyRequest.method,
+      proxyRequest.url,
+      proxyRequest.body,
+      proxyRequest.headers
     );
     return await HttpResponse.fromHttpClientResponse(response);
   }

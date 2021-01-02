@@ -6,7 +6,7 @@ const recoverDeletedSasDefinition: AzureFunction = async function (
   context: Context,
   req: HttpRequest
 ): Promise<void> {
-  context.res = await new AzureFunctionsProxyClient().request(
+  context.res = await new AzureFunctionsProxyClient().proxyRequest(
     req,
     Environment.getBackendUrl()
   );

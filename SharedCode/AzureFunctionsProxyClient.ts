@@ -1,6 +1,7 @@
 import { HttpRequest, Cookie } from "@azure/functions";
 import { HttpClient } from "typed-rest-client/HttpClient";
 import { IHttpClientResponse } from "typed-rest-client/Interfaces";
+import { cloneDeep } from "lodash";
 
 export class AzureFunctionsProxyClient {
   private httpClient: HttpClient;
@@ -9,9 +10,17 @@ export class AzureFunctionsProxyClient {
     this.httpClient = new HttpClient(undefined);
   }
 
+  private getRequestMethod(request: HttpRequest): string {
+    return request.method;
+  }
+
   private getProxyHref(proxyUrl: URL, request: HttpRequest): string {
     const requestUrl = new URL(request.url);
     return proxyUrl.origin + requestUrl.pathname + requestUrl.search;
+  }
+
+  private getProxyBody(request: HttpRequest): string {
+    return request.body;
   }
 
   /**
@@ -42,30 +51,28 @@ export class AzureFunctionsProxyClient {
     return request.headers;
   }
 
-  private getProxyBody(request: HttpRequest): string {
-    return request.body;
-  }
-
-  async request(
-    verb: string,
-    proxyUrl: URL,
-    request: HttpRequest
+  /**
+   * Proxies the given Azure Functions request to the provided proxyUrl
+   * following [W3 Proxy guidelines.](https://www.w3.org/TR/ct-guidelines/#sec-introduction)
+   * @param request The request to proxy.
+   * @param endpointUrl The URL of the endpoint to proxy the request to.
+   */
+  async proxyRequest(
+    request: HttpRequest,
+    endpointUrl: URL
   ): Promise<IHttpResponse> {
-    if (verb == null) {
-      throw new TypeError("Invalid parameter: verb.");
-    }
-    if (proxyUrl == null) {
-      throw new TypeError("Invalid parameter: proxyUrl.");
-    }
     if (request == null) {
       throw new TypeError("Invalid parameter: request.");
     }
-
+    if (endpointUrl == null) {
+      throw new TypeError("Invalid parameter: proxyUrl.");
+    }
+    const proxyRequest = cloneDeep(request);
     const response = await this.httpClient.request(
-      verb,
-      this.getProxyHref(proxyUrl, request),
-      this.getProxyBody(request),
-      this.getProxyHeaders(proxyUrl, request)
+      this.getRequestMethod(proxyRequest),
+      this.getProxyHref(endpointUrl, proxyRequest),
+      this.getProxyBody(proxyRequest),
+      this.getProxyHeaders(endpointUrl, proxyRequest)
     );
     return await HttpResponse.fromHttpClientResponse(response);
   }

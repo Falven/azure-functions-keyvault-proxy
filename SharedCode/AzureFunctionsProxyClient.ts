@@ -25,24 +25,28 @@ export class AzureFunctionsProxyClient {
   /**
    * Sets the via header in accordance with [RFC 2616/W3 Proxy guidelines 4.1.6.1.](https://www.w3.org/TR/ct-guidelines/#sec-via-headers)
    * @param request The request whose via header to set.
-   * @param endpointUrl The URL of the proxy.
+   * @param proxyUrl The URL of this proxy Azure Functions instance.
    */
-  private setViaHeader(request: HttpRequest, endpointUrl: URL): void {
-    let viaHeader = request.headers["via"].trim();
+  private setViaHeader(request: HttpRequest, proxyUrl: URL): void {
+    let viaHeader = request.headers["via"]?.trim();
     if (viaHeader) {
       viaHeader += ", ";
     }
-    request.headers["via"] = `${viaHeader}1.1 ${endpointUrl.hostname}`;
+    request.headers["via"] = viaHeader + "1.1 " + proxyUrl.hostname;
   }
 
   /**
    * Sets the Url to the endpoint.
    * @param request The request used to construct the Url.
+   * @param proxyUrl The URL of this proxy Azure Functions instance.
    * @param endpointUrl The URL of the endpoint.
    */
-  private setEndpointUrl(request: HttpRequest, endpointUrl: URL): void {
-    const requestUrl = new URL(request.url);
-    request.url = endpointUrl.origin + requestUrl.pathname + requestUrl.search;
+  private setEndpointUrl(
+    request: HttpRequest,
+    proxyUrl: URL,
+    endpointUrl: URL
+  ): void {
+    request.url = endpointUrl.origin + proxyUrl.pathname + proxyUrl.search;
   }
 
   /**
@@ -63,10 +67,11 @@ export class AzureFunctionsProxyClient {
     }
 
     const proxyRequest = cloneDeep(request);
+    const proxyUrl = new URL(proxyRequest.url);
     // Given that the function will be running on the Azure Function runtime, the x-forwarded-for header will already be set for us.
     this.setHostHeader(proxyRequest, endpointUrl);
-    this.setViaHeader(proxyRequest, endpointUrl);
-    this.setEndpointUrl(proxyRequest, endpointUrl);
+    this.setViaHeader(proxyRequest, proxyUrl);
+    this.setEndpointUrl(proxyRequest, proxyUrl, endpointUrl);
     const response = await this.httpClient.request(
       proxyRequest.method,
       proxyRequest.url,

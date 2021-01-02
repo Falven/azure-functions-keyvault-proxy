@@ -7,9 +7,8 @@ const getStorageAccounts: AzureFunction = async function (
   req: HttpRequest
 ): Promise<void> {
   context.res = await new AzureFunctionsProxyClient().request(
-    context.bindings.req.method,
-    Environment.getBackendUrl(),
-    req
+    req,
+    Environment.getBackendUrl()
   );
 };
 

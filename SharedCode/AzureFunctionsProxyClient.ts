@@ -134,14 +134,26 @@ export class HttpResponse implements IHttpResponse {
    */
   cookies: Cookie[];
 
+  private static parseCookies(cookiesHeader: string): Cookie[] {
+    const cookies = cookiesHeader.split("; ");
+    return cookies.map((cookieString) => {
+      const cookieAttributes = cookieString.split("=");
+      return {
+        name: cookieAttributes[0],
+        value: cookieAttributes[1],
+      };
+    });
+  }
+
   static async fromHttpClientResponse(
     httpClientResponse: IHttpClientResponse
   ): Promise<IHttpResponse> {
+    const httpClientResponseMessage = httpClientResponse.message;
     return {
       body: await httpClientResponse.readBody(),
-      headers: httpClientResponse.message.headers as { [key: string]: string },
-      status: httpClientResponse.message.statusCode,
-      cookies: undefined,
+      headers: httpClientResponseMessage.headers as { [key: string]: string },
+      status: httpClientResponseMessage.statusCode,
+      cookies: this.parseCookies(httpClientResponseMessage.headers["cookie"]),
     };
   }
 }

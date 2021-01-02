@@ -7,7 +7,7 @@ const createKey: AzureFunction = async function (
   req: HttpRequest
 ): Promise<void> {
   context.res = await new AzureFunctionsProxyClient().request(
-    context.bindings.request.method,
+    context.bindings.req.method,
     Environment.getBackendUrl(),
     req
   );

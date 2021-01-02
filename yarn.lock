@@ -99,6 +99,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash.clone@npm:^4.5.6":
+  version: 4.5.6
+  resolution: "@types/lodash.clone@npm:4.5.6"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: 69ac9e547ef3d8512f61de85443cc995375f8ae063a9cbe5a2fd9b71a14f6f046fc1a2bcb3dab4f6fec0e76823afa0ca54d9f3d15889f7dcee84afe76834dddb
+  languageName: node
+  linkType: hard
+
 "@types/lodash.clonedeep@npm:^4.5.6":
   version: 4.5.6
   resolution: "@types/lodash.clonedeep@npm:4.5.6"
@@ -337,6 +346,7 @@ __metadata:
   resolution: "azure-functions-keyvault-proxy@workspace:."
   dependencies:
     "@azure/functions": ^1.2.2
+    "@types/lodash.clone": ^4.5.6
     "@types/lodash.clonedeep": ^4.5.6
     "@types/node": ^14.14.19
     "@yarnpkg/pnpify": ^2.4.0

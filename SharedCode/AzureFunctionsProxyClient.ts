@@ -1,7 +1,7 @@
 import { HttpRequest, Cookie } from "@azure/functions";
 import { HttpClient } from "typed-rest-client/HttpClient";
 import { IHttpClientResponse } from "typed-rest-client/Interfaces";
-import { cloneDeep } from "lodash";
+import { clone, cloneDeep } from "lodash";
 
 /**
  * A minimal transparent proxy client that processes Azure function requests and responses.
@@ -145,15 +145,21 @@ export class HttpResponse implements IHttpResponse {
     });
   }
 
+  /**
+   * Factory method for creating
+   */
   static async fromHttpClientResponse(
     httpClientResponse: IHttpClientResponse
   ): Promise<IHttpResponse> {
     const httpClientResponseMessage = httpClientResponse.message;
+    const clonedHeaders = clone(
+      httpClientResponseMessage.headers as { [key: string]: string }
+    );
     return {
-      body: await httpClientResponse.readBody(),
-      headers: httpClientResponseMessage.headers as { [key: string]: string },
-      status: httpClientResponseMessage.statusCode,
-      cookies: this.parseCookies(httpClientResponseMessage.headers["cookie"]),
+      body: clone(await httpClientResponse.readBody()),
+      headers: clonedHeaders,
+      status: clone(httpClientResponseMessage.statusCode),
+      cookies: this.parseCookies(clonedHeaders["cookie"]),
     };
   }
 }

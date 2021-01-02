@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@azure/functions": "^1.2.2",
+    "@types/lodash.clone": "^4.5.6",
     "@types/lodash.clonedeep": "^4.5.6",
     "@types/node": "^14.14.19",
     "typescript": "^3.3.3"

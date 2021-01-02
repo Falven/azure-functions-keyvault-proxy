@@ -28,11 +28,11 @@ export class AzureFunctionsProxyClient {
    * @param proxyUrl The URL of this proxy Azure Functions instance.
    */
   private setViaHeader(request: HttpRequest, proxyUrl: URL): void {
-    let viaHeader = request.headers["via"]?.trim();
-    if (viaHeader) {
-      viaHeader += ", ";
+    let via = request.headers["via"]?.trim();
+    if (via) {
+      via += ", ";
     }
-    request.headers["via"] = viaHeader + "1.1 " + proxyUrl.hostname;
+    request.headers["via"] = `${via || ""}1.1 ${proxyUrl.hostname}`;
   }
 
   /**
@@ -144,14 +144,17 @@ export class HttpResponse implements IHttpResponse {
    * @param cookiesHeader The cookie header string to parse.
    */
   private static parseCookies(cookiesHeader: string): Cookie[] {
-    const cookies = cookiesHeader.split("; ");
-    return cookies.map((cookieString) => {
-      const cookieAttributes = cookieString.split("=");
-      return {
-        name: cookieAttributes[0],
-        value: cookieAttributes[1],
-      };
-    });
+    if (cookiesHeader) {
+      const cookies = cookiesHeader.split("; ");
+      return cookies.map((cookieString) => {
+        const cookieAttributes = cookieString.split("=");
+        return {
+          name: cookieAttributes[0],
+          value: cookieAttributes[1],
+        };
+      });
+    }
+    return [];
   }
 
   /**

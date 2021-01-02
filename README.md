@@ -32,4 +32,4 @@ Azure deployment is up to the user, it can be deployed via zip deploy or through
 
 ## Usage
 
-Usage of the proxy involves [standard Azure Key Vault authentication, requests, and responses.](https://docs.microsoft.com/en-us/azure/key-vault/general/authentication-requests-and-responses)
+Usage of the proxy involves [standard Azure Key Vault API authentication, requests, and responses.](https://docs.microsoft.com/en-us/azure/key-vault/general/authentication-requests-and-responses)

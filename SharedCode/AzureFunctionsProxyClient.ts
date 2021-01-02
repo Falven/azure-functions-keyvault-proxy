@@ -134,6 +134,10 @@ export class HttpResponse implements IHttpResponse {
    */
   cookies: Cookie[];
 
+  /**
+   * Parses the cookie header string into Azure Functions Cookie objects.
+   * @param cookiesHeader The cookie header string to parse.
+   */
   private static parseCookies(cookiesHeader: string): Cookie[] {
     const cookies = cookiesHeader.split("; ");
     return cookies.map((cookieString) => {
@@ -146,7 +150,7 @@ export class HttpResponse implements IHttpResponse {
   }
 
   /**
-   * Factory method for creating
+   * Factory method for creating an Azure Functions HttpResponse from an IHttpClientResponse.
    */
   static async fromHttpClientResponse(
     httpClientResponse: IHttpClientResponse

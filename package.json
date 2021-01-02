@@ -11,11 +11,13 @@
   },
   "devDependencies": {
     "@azure/functions": "^1.2.2",
+    "@types/lodash.clonedeep": "^4.5.6",
+    "@types/node": "^14.14.19",
     "typescript": "^3.3.3"
   },
   "dependencies": {
-    "@types/node": "^14.14.16",
     "@yarnpkg/pnpify": "^2.4.0",
+    "lodash": "^4.17.20",
     "typed-rest-client": "^1.8.0"
   }
 }

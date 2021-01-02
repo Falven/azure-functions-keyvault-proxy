@@ -38,8 +38,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["@azure/functions", "npm:1.2.2"],
-            ["@types/node", "npm:14.14.16"],
+            ["@types/lodash.clonedeep", "npm:4.5.6"],
+            ["@types/node", "npm:14.14.19"],
             ["@yarnpkg/pnpify", "virtual:f9e4b2ea2c076ae70088b4d5ae5e7281e606115d901aaf9ab04f99f7211a4d5c526f4730083dd405c2c63d2494c50671ec3dfd9ee65588b958c13b638ff79c89#npm:2.4.0"],
+            ["lodash", "npm:4.17.20"],
             ["typed-rest-client", "npm:1.8.0"],
             ["typescript", "patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=cc6730"]
           ],
@@ -156,6 +158,25 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["@types/lodash", [
+        ["npm:4.14.167", {
+          "packageLocation": "./.yarn/cache/@types-lodash-npm-4.14.167-275fff817a-40778f83a8.zip/node_modules/@types/lodash/",
+          "packageDependencies": [
+            ["@types/lodash", "npm:4.14.167"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@types/lodash.clonedeep", [
+        ["npm:4.5.6", {
+          "packageLocation": "./.yarn/cache/@types-lodash.clonedeep-npm-4.5.6-2af9653686-dbea0618d2.zip/node_modules/@types/lodash.clonedeep/",
+          "packageDependencies": [
+            ["@types/lodash.clonedeep", "npm:4.5.6"],
+            ["@types/lodash", "npm:4.14.167"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["@types/node", [
         ["npm:13.13.38", {
           "packageLocation": "./.yarn/cache/@types-node-npm-13.13.38-4b102efd9c-b373d9285c.zip/node_modules/@types/node/",
@@ -168,6 +189,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-node-npm-14.14.16-b866b68544-220a7496ec.zip/node_modules/@types/node/",
           "packageDependencies": [
             ["@types/node", "npm:14.14.16"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:14.14.19", {
+          "packageLocation": "./.yarn/cache/@types-node-npm-14.14.19-28dd633b29-218ff4a939.zip/node_modules/@types/node/",
+          "packageDependencies": [
+            ["@types/node", "npm:14.14.19"]
           ],
           "linkType": "HARD",
         }]
@@ -400,8 +428,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["azure-functions-keyvault-proxy", "workspace:."],
             ["@azure/functions", "npm:1.2.2"],
-            ["@types/node", "npm:14.14.16"],
+            ["@types/lodash.clonedeep", "npm:4.5.6"],
+            ["@types/node", "npm:14.14.19"],
             ["@yarnpkg/pnpify", "virtual:f9e4b2ea2c076ae70088b4d5ae5e7281e606115d901aaf9ab04f99f7211a4d5c526f4730083dd405c2c63d2494c50671ec3dfd9ee65588b958c13b638ff79c89#npm:2.4.0"],
+            ["lodash", "npm:4.17.20"],
             ["typed-rest-client", "npm:1.8.0"],
             ["typescript", "patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=cc6730"]
           ],

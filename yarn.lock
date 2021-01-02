@@ -99,7 +99,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^14.14.16":
+"@types/lodash.clonedeep@npm:^4.5.6":
+  version: 4.5.6
+  resolution: "@types/lodash.clonedeep@npm:4.5.6"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: dbea0618d2cdd02cc0447cc74b3e44dfb04bf9b45069f36da666d4e17d4ffc5457d46ee6180b72ed87635ef7a5b0c01ae16eaf1b116551eaf2058ae204679ca8
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:*":
+  version: 4.14.167
+  resolution: "@types/lodash@npm:4.14.167"
+  checksum: 40778f83a86392625b3d52c15f59171a0f6a35436128b8fb1e37f89162f7950dc98570f27bc99ce1e2e04084e64da41cb45146d091d5181e12c6733bcf16fac6
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:*":
   version: 14.14.16
   resolution: "@types/node@npm:14.14.16"
   checksum: 220a7496ec73861ad7fb4ae762618bb46ac9d5d5f92f3a2fcebfd1a81a509ff558eface7bcd1d632598a8a28f856a74b324e7165918e8334a59c221cb06d15e3
@@ -110,6 +126,13 @@ __metadata:
   version: 13.13.38
   resolution: "@types/node@npm:13.13.38"
   checksum: b373d9285c7c6c867144d83df00095b201b9d6ea9211694c9b5df25bcd0f78f70e46da22aed3e31f7cc3ea4a326fb59c15326a051805e1cac5ae5df6dee56008
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^14.14.19":
+  version: 14.14.19
+  resolution: "@types/node@npm:14.14.19"
+  checksum: 218ff4a93978cf41f4dd3d6aea7555d119873b50905889b1a3f14737f1e135a688672fa1f8e02ed856922fb828703bb064f7733f7e6998173c4714a7a3ec4c4c
   languageName: node
   linkType: hard
 
@@ -314,8 +337,10 @@ __metadata:
   resolution: "azure-functions-keyvault-proxy@workspace:."
   dependencies:
     "@azure/functions": ^1.2.2
-    "@types/node": ^14.14.16
+    "@types/lodash.clonedeep": ^4.5.6
+    "@types/node": ^14.14.19
     "@yarnpkg/pnpify": ^2.4.0
+    lodash: ^4.17.20
     typed-rest-client: ^1.8.0
     typescript: ^3.3.3
   languageName: unknown
@@ -820,7 +845,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.15":
+"lodash@npm:^4.17.15, lodash@npm:^4.17.20":
   version: 4.17.20
   resolution: "lodash@npm:4.17.20"
   checksum: c62101d2500c383b5f174a7e9e6fe8098149ddd6e9ccfa85f36d4789446195f5c4afd3cfba433026bcaf3da271256566b04a2bf2618e5a39f6e67f8c12030cb6

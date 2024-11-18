@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@yarnpkg/pnpify": "^2.4.0",
-    "lodash": "^4.17.20",
-    "typed-rest-client": "^1.8.0"
+    "lodash": "^4.17.21",
+    "typed-rest-client": "^1.8.11"
   }
 }
